@@ -3,7 +3,7 @@
 #* Purpose:   
 #* Author:   Alsaadi Y,Amos Enderson,Christopher Ash,Elias Kraihanzel,Lincoln Anderson
 #* Created:  04-03-2018
-#* Copyright: Alsaadi Y,Amos Enderson,Christopher Ash,Elias Kraihanzel,Lincoln Anderson
+#* Copyright: 
 #* License:
 #***************************************************************************************
 
