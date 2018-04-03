@@ -23,7 +23,6 @@ from matplotlib import pyplot as plt
 import itertools
 import matplotlib.pyplot as plt
 import  PIL
-from sklearn.metrics import confusion_matrix
 
 train_batches = ImageDataGenerator().flow_from_directory(
     'CarsID/train', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #c stand for Camry
