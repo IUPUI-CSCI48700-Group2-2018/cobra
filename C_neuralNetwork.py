@@ -1,9 +1,9 @@
 #**************************************************************************************/
-#* Name:      
-#* Purpose:   
+#* Name:
+#* Purpose:
 #* Author:   Alsaadi Y,Amos Enderson,Christopher Ash,Elias Kraihanzel,Lincoln Anderson
 #* Created:  04-03-2018
-#* Copyright: 
+#* Copyright:
 #* License:
 #***************************************************************************************
 
@@ -15,7 +15,7 @@ from keras.layers import Activation
 from keras.layers.core import Dense
 from keras.layers.core import Flatten
 from keras.optimizers import Adam
-from keras.metrics import categorical_accuracy,categorical_crossentropy  
+from keras.metrics import categorical_accuracy,categorical_crossentropy
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers.normalization import BatchNormalization
 from keras.layers.convolutional import *
@@ -33,11 +33,11 @@ test_batches = ImageDataGenerator().flow_from_directory(
 
 
 test_image2, test_labels2 = next(test_batches)  #to label the classes
-print(test_labels2)                            
+print(test_labels2)
 print()
 
 vgg16_model = keras.applications.vgg16.VGG16()
-#vgg16_model.summary()             #To print the 16 layers summary of vigg16 model   
+#vgg16_model.summary()             #To print the 16 layers summary of vigg16 model
 
 Seq_modelS = Sequential()          #create linear layers to modify vgg16
 for layers in vgg16_model.layers:  # loop in each layer in vigg16
@@ -46,9 +46,9 @@ for layers in vgg16_model.layers:  # loop in each layer in vigg16
 Seq_modelS.layers.pop()            #pop the last layer,prediction (Dense)(None,1000)
                                    #becuse this model can analysis 1000 differnt categories
 
-for layer in Seq_modelS.layers:    # for now there is only to categories 
-    layer.trainable = False        # dont trian the layers because they have been trained in vgg16  
-    
+for layer in Seq_modelS.layers:    # for now there is only to categories
+    layer.trainable = False        # dont trian the layers because they have been trained in vgg16
+
 Seq_modelS.add(Dense(2, activation='softmax'))# add this layer to the end of model,becuse we only have 2 categories to train for now
 #Seq_modelS.summary()                         #print summary of the modified model
 
@@ -63,5 +63,4 @@ print(predictions)
 print()
 print(test_batches.class_indices)         #print how the classes is labeled in keras
 print()
-print(np.argmax(predictions, axis=1))     #print the final result by labels 
-
+print(np.argmax(predictions, axis=1))     #print the final result by labels
