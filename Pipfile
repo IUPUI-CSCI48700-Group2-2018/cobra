@@ -8,6 +8,8 @@ numpy = "*"
 keras = "*"
 tensorflow = "*"
 matplotlib = "*"
+pillow = "*"
+"h5py" = "*"
 
 [dev-packages]
 
