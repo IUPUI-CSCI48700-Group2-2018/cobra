@@ -63,4 +63,13 @@ print(predictions)
 print()
 print(test_batches.class_indices)         #print how the classes is labeled in keras
 print()
-print(np.argmax(predictions, axis=1))     #print the final result by labels
+#print(np.argmax(predictions, axis=1))     #print the final result by labels
+predict_round=np.argmax(predictions, axis=1)    #print the final result by labels
+print(predict_round)
+print()
+if predict_round.any()==1:
+    prediction = 'Mercedes_Benz.'
+else:
+    prediction = 'Toyota_Camry'
+print(prediction)
+
