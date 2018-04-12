@@ -9,20 +9,11 @@
 
 import numpy as np
 import keras
-from keras import backend as k
 from keras.models import Sequential
-from keras.layers import Activation
 from keras.layers.core import Dense
-from keras.layers.core import Flatten
 from keras.optimizers import Adam
-from keras.metrics import categorical_accuracy,categorical_crossentropy
 from keras.preprocessing.image import ImageDataGenerator
-from keras.layers.normalization import BatchNormalization
-from keras.layers.convolutional import *
-from matplotlib import pyplot as plt
-import itertools
-import matplotlib.pyplot as plt
-import  PIL
+
 
 train_batches = ImageDataGenerator().flow_from_directory(
     'CarsID/train', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #c stand for Camry
