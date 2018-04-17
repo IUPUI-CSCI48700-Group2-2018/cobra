@@ -13,6 +13,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
+import statistics
 
 
 train_batches = ImageDataGenerator().flow_from_directory(
@@ -58,8 +59,9 @@ print()
 predict_round=np.argmax(predictions, axis=1)    #print the final result by labels
 print(predict_round)
 print()
-if predict_round.any()==1:
-    prediction = 'Mercedes_Benz.'
+
+if statistics.mode(predict_round)==1:     # to get the most common value of data in predict list that indicates the classes
+    prediction = 'Mercedes_Benz.'         # for this test most common value is 1 witch is Mercedes_Benz
 else:
     prediction = 'Toyota_Camry'
 print(prediction)
