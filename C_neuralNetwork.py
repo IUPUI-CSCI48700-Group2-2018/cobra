@@ -63,4 +63,3 @@ if predict_round.any()==1:
 else:
     prediction = 'Toyota_Camry'
 print(prediction)
-
