@@ -1,14 +1,10 @@
-from Classifiers import vgg16Classifier
-from keras.preprocessing.image import ImageDataGenerator
+from Classifiers import Vgg16Classifier
+from DataCollectors import LocalDataCollector
 
-train_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/train', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #c stand for Camry
-valid_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/valid', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #m stand for Mercedes
-test_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/test', target_size=(224, 224), classes=['c', 'm'], batch_size=4)
+dataCollector = LocalDataCollector()
+data = dataCollector.collectData()
 
-c = vgg16Classifier()
-c.fit(train_batches,valid_batches)
-pred = c.predict(test_batches)
+c = Vgg16Classifier()
+c.fit(data.train,data.validation)
+pred = c.predict(data.test)
 print(pred)

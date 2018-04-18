@@ -5,7 +5,7 @@ from keras.layers import Dense
 from keras.optimizers import Adam
 import numpy as np
 
-class vgg16Classifier(BaseClassifier):
+class Vgg16Classifier(BaseClassifier):
 
     def fit(self, train, validation):
         vgg16_model = VGG16()
@@ -23,7 +23,7 @@ class vgg16Classifier(BaseClassifier):
 
         Seq_modelS.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
         Seq_modelS.fit_generator(train, steps_per_epoch=4, validation_data=validation, validation_steps=4,
-                                 epochs=5, verbose=2)
+                                 epochs=1, verbose=2)
 
         self.model = Seq_modelS
 

@@ -1,1 +1,1 @@
-from .vgg16Classifier import vgg16Classifier
+from .Vgg16Classifier import Vgg16Classifier
