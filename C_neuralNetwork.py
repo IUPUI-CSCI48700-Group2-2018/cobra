@@ -7,21 +7,19 @@
 #* License:
 #***************************************************************************************
 
-import numpy as np
 import keras
-from keras.models import Sequential
+import numpy as np
 from keras.layers.core import Dense
+from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
-import statistics
-
 
 train_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/train', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #c stand for Camry
+    'CarsID/train', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=50)
 valid_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/valid', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #m stand for Mercedes
+    'CarsID/valid', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=50)
 test_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/test', target_size=(224, 224), classes=['c', 'm'], batch_size=4)
+    'CarsID/test', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=32)
 
 
 test_image2, test_labels2 = next(test_batches)  #to label the classes
@@ -41,13 +39,13 @@ Seq_modelS.layers.pop()            #pop the last layer,prediction (Dense)(None,1
 for layer in Seq_modelS.layers:    # for now there is only to categories
     layer.trainable = False        # dont trian the layers because they have been trained in vgg16
 
-Seq_modelS.add(Dense(2, activation='softmax'))# add this layer to the end of model,becuse we only have 2 categories to train for now
+Seq_modelS.add(Dense(4, activation='softmax'))# add this layer to the end of model,becuse we only have 2 categories to train for now
 #Seq_modelS.summary()                         #print summary of the modified model
 
 
 
 Seq_modelS.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
-Seq_modelS.fit_generator(train_batches, steps_per_epoch=4, validation_data=valid_batches, validation_steps=4,
+Seq_modelS.fit_generator(train_batches, steps_per_epoch=99, validation_data=valid_batches, validation_steps=5,
                          epochs=5, verbose=2)
 
 predictions = Seq_modelS.predict_generator(test_batches, steps=1, verbose=0)
@@ -58,11 +56,4 @@ print()
 #print(np.argmax(predictions, axis=1))     #print the final result by labels
 predict_round=np.argmax(predictions, axis=1)    #print the final result by labels
 print(predict_round)
-print()
-
-if statistics.mode(predict_round)==1:     # to get the most common value of data in predict list that indicates the classes
-    prediction = 'Mercedes_Benz.'         # for this test most common value is 1 witch is Mercedes_Benz
-else:
-    prediction = 'Toyota_Camry'
-print(prediction)
 
