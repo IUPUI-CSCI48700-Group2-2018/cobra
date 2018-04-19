@@ -15,9 +15,9 @@ from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
 
 train_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/train', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=32)  #c stand for Camry
+    'CarsID/train', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=50)
 valid_batches = ImageDataGenerator().flow_from_directory(
-    'CarsID/valid', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=32)  #m stand for Mercedes
+    'CarsID/valid', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=50)
 test_batches = ImageDataGenerator().flow_from_directory(
     'CarsID/test', target_size=(224, 224), classes=['BMW', 'Ford', 'Honda', 'Mazda'], batch_size=32)
 
@@ -45,8 +45,8 @@ Seq_modelS.add(Dense(4, activation='softmax'))# add this layer to the end of mod
 
 
 Seq_modelS.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
-Seq_modelS.fit_generator(train_batches, steps_per_epoch=5, validation_data=valid_batches, validation_steps=5,
-                         epochs=175, verbose=2)
+Seq_modelS.fit_generator(train_batches, steps_per_epoch=99, validation_data=valid_batches, validation_steps=5,
+                         epochs=5, verbose=2)
 
 predictions = Seq_modelS.predict_generator(test_batches, steps=1, verbose=0)
 print(predictions)
