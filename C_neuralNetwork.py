@@ -65,4 +65,3 @@ if statistics.mode(predict_round)==1:     # to get the most common value of data
 else:
     prediction = 'Toyota_Camry'
 print(prediction)
-
