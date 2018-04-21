@@ -7,25 +7,26 @@ import numpy as np
 
 class Vgg16Classifier(BaseClassifier):
 
+    # Convert the vgg16 model to a sequential model, remove the last
+    # layer, disable training on each layer of the sequential model, and
+    # add a new layer
     def fit(self, train, validation):
-        vgg16_model = VGG16()
-        Seq_modelS = Sequential()          #create linear layers to modify vgg16
-        for layers in vgg16_model.layers:  # loop in each layer in vigg16
-            Seq_modelS.add(layers)         #and add each layer to the sequentail model
+        vgg16Model = VGG16()
+        model = Sequential()
+        for layer in vgg16Model.layers:
+            model.add(layer)
 
-        Seq_modelS.layers.pop()            #pop the last layer,prediction (Dense)(None,1000)
-                                           #becuse this model can analysis 1000 differnt categories
+        model.layers.pop()
+        for layer in model.layers:
+            layer.trainable = False
 
-        for layer in Seq_modelS.layers:    # for now there is only to categories
-            layer.trainable = False        # dont trian the layers because they have been trained in vgg16
+        model.add(Dense(2, activation='softmax'))
 
-        Seq_modelS.add(Dense(2, activation='softmax'))# add this layer to the end of model,becuse we only have 2 categories to train for now
-
-        Seq_modelS.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
-        Seq_modelS.fit_generator(train, steps_per_epoch=4, validation_data=validation, validation_steps=4,
+        model.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
+        model.fit_generator(train, steps_per_epoch=4, validation_data=validation, validation_steps=4,
                                  epochs=5, verbose=2)
 
-        self.model = Seq_modelS
+        self.model = model
 
     def predict(self, test):
         return np.argmax(self.model.predict_generator(test, steps=1, verbose=0),axis=1)
