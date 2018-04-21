@@ -23,7 +23,7 @@ class Vgg16Classifier(BaseClassifier):
 
         Seq_modelS.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
         Seq_modelS.fit_generator(train, steps_per_epoch=4, validation_data=validation, validation_steps=4,
-                                 epochs=1, verbose=2)
+                                 epochs=5, verbose=2)
 
         self.model = Seq_modelS
 
