@@ -7,7 +7,7 @@ import numpy as np
 
 class Vgg16Classifier(BaseClassifier):
 
-    def fit(self, train, validation):
+    def fit(self, dataGenerator):
         vgg16_model = VGG16()
         Seq_modelS = Sequential()          #create linear layers to modify vgg16
         for layers in vgg16_model.layers:  # loop in each layer in vigg16
