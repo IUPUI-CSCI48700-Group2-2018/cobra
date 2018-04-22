@@ -1,10 +1,11 @@
 from Classifiers import Vgg16Classifier
 from DataCollectors import LocalDataCollector
 
-dataCollector = LocalDataCollector()
-train, test, validation = dataCollector.collectData()
+from Preprocessors import PreprocessorImpl
+from Application import Application
 
-c = Vgg16Classifier()
-c.fit(train,validation)
-pred = c.predict(test)
-print(pred)
+dataCollector = LocalDataCollector()
+preprocessor = PreprocessorImpl()
+classifier = Vgg16Classifier()
+
+app = Application(dataCollector, preprocessor, classifier)

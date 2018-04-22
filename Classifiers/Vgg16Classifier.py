@@ -9,24 +9,22 @@ class Vgg16Classifier(BaseClassifier):
 
     # Convert the vgg16 model to a sequential model, remove the last
     # layer, disable training on each layer of the sequential model, and
-    # add a new layer
-    def fit(self, dataGenerator):
+    # add a new layer with the number of nodes equaling the number of classes
+    def fit(self, train, test=None):
         vgg16Model = VGG16()
         model = Sequential()
         for layer in vgg16Model.layers:
             model.add(layer)
-            
+
         model.layers.pop()
         for layer in model.layers:
             layer.trainable = False
 
-        model.add(Dense(2, activation='softmax'))
-
+        model.add(Dense(len(train.class_indices), activation='softmax'))
         model.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
-        model.fit_generator(train, steps_per_epoch=4, validation_data=validation, validation_steps=4,
-                                 epochs=5, verbose=2)
-
+        model.fit_generator(train, validation_data=test, epochs=100,verbose=1)
+        model.save('model.h5')
         self.model = model
 
-    def predict(self, test):
-        return np.argmax(self.model.predict_generator(test, steps=1, verbose=0),axis=1)
+    def predict(self, data):
+        return np.argmax(self.model.predict_generator(data, steps=1, verbose=0),axis=1)
