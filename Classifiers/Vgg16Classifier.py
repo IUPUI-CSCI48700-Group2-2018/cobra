@@ -23,8 +23,8 @@ class Vgg16Classifier(BaseClassifier):
         model.add(Dense(len(train.class_indices), activation='softmax'))
         model.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
         model.fit_generator(train, validation_data=test, epochs=100,verbose=1)
-        model.save('model.h5')
+        model.save_weights('model.h5')
         self.model = model
 
     def predict(self, data):
-        return np.argmax(self.model.predict_generator(data, steps=1, verbose=0),axis=1)
+        return np.argmax(self.model.predict_generator(data, verbose=1),axis=1)

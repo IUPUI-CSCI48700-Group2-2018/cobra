@@ -1,2 +1,1 @@
 from .Vgg16Classifier import Vgg16Classifier
-from .ConvolutionClassifier import ConvolutionClassifier
