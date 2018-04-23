@@ -1,11 +1,10 @@
 from Classifiers import Vgg16Classifier
 from DataCollectors import LocalDataCollector
-
-from Preprocessors import PreprocessorImpl
+from preprocessing import simplePreprocessing
 from Application import Application
 
-dataCollector = LocalDataCollector()
-preprocessor = PreprocessorImpl()
+dataCollector = LocalDataCollector("data/CobraSmall",simplePreprocessing)
 classifier = Vgg16Classifier()
 
-app = Application(dataCollector, preprocessor, classifier)
+app = Application(dataCollector, classifier)
+app.run()

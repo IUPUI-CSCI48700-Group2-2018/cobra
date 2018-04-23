@@ -2,13 +2,16 @@ import numpy as np
 from sklearn.metrics import f1_score
 
 class Application:
-    def __init__(self, dataCollector, preprocessor, classifier):
-        train,test = dataCollector.collectData("data/CobraSmall/train")
-        # processedData = preprocessor.preprocess(trainData)
-        classifier.fit(train)
+    def __init__(self, dataCollector, classifier):
+        self.dataCollector = dataCollector
+        self.classifier = classifier
 
-        prediction = classifier.predict(test);
+    def run(self):
+        train,test = self.dataCollector.collectData()
 
-        _, testLabels = next(test)
-        print(np.argmax(testLabels,axis=1))
-        print(prediction)
+        self.classifier.fit(train)
+        # prediction = self.classifier.predict(test);
+        #
+        # _, testLabels = next(test)
+        # print(np.argmax(testLabels,axis=1))
+        # print(prediction)
