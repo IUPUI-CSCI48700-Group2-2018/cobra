@@ -5,10 +5,13 @@ import PIL
 import scipy
 from scipy import misc, ndimage
 
-def xyGradient(img):
-    img = img.astype('int32')
+def simplePreprocessing(image):
+    imageArray = np.array(image)
+    imageArray = imageArray.reshape((image.height,image.width,len(image.getbands())))
+    img = imageArray.astype('int32')
     dx = ndimage.sobel(img, 0)
     dy = ndimage.sobel(img, 1)
-    mag =  np.hypot(dx, dy)
+    mag = np.hypot(dx, dy)
     mag *= 255.0 / np.max(mag)
-    return mag
+    imageFinal = PIL.Image.fromarray(np.uint8(mag))
+    return imageFinal
