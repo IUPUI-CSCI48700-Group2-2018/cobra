@@ -8,19 +8,16 @@ class LocalDataCollector(DataCollectorBase):
         self.preprocessor = preprocessor
 
     def collectData(self):
-        dataGenerator = ImageDataGenerator(validation_split=0.3,
-            preprocessing_function=self.preprocessor)
+        dataGenerator = ImageDataGenerator(preprocessing_function=self.preprocessor)
 
         train = dataGenerator.flow_from_directory(
-            self.directory,
+            self.directory+"/train",
             target_size=(224, 224),
-            subset="training",
             batch_size=32)
 
         test = dataGenerator.flow_from_directory(
-            self.directory,
+            self.directory+"/test",
             target_size=(224, 224),
-            subset="validation",
             batch_size=32)
 
         return train, test

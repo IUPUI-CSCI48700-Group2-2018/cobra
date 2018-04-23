@@ -1,6 +1,6 @@
 from .BaseClassifier import BaseClassifier
 from keras.applications.vgg16 import VGG16
-from keras.models import Sequential
+from keras.models import Model
 from keras.layers import Dense
 from keras.optimizers import Adam
 import numpy as np
