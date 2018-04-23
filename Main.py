@@ -10,4 +10,4 @@ dataCollector = LocalDataCollector()
 preprocessor = PreprocessorImpl()
 classifier = Vgg16Classifier()
 
-app = Application(dataCollector, preprocessor, classifier, False)
+app = Application(dataCollector, preprocessor, classifier)
