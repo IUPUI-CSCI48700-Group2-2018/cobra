@@ -27,7 +27,7 @@ class Vgg16Classifier(BaseClassifier):
         model = Dense(len(train.class_indices), activation='softmax')(model)
         model = Model(inputs=vgg16Model.input, outputs=model)
         model.compile(Adam(lr=.0001), loss='categorical_crossentropy', metrics=['accuracy'])
-        model.fit_generator(train, validation_data=test, epochs=40,verbose=1)
+        model.fit_generator(train, validation_data=test, epochs=50,verbose=1)
         model.save(self.modelName+".h5")
 
         self.model = model

@@ -3,8 +3,8 @@ from DataCollectors import LocalDataCollector
 from preprocessing import simplePreprocessing
 from Application import Application
 
-dataCollector = LocalDataCollector("data/CobraCleaned",simplePreprocessing)
-classifier = Vgg16Classifier("testModel")
+dataCollector = LocalDataCollector("data/CobraCleanedDiv",simplePreprocessing)
+classifier = Vgg16Classifier("modelSobelPreprocessing")
 
 app = Application(dataCollector, classifier)
 app.run()
