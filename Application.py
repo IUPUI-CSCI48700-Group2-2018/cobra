@@ -10,8 +10,10 @@ class Application:
         train,test = self.dataCollector.collectData()
 
         self.classifier.fit(train)
-        # prediction = self.classifier.predict(test);
-        #
-        # _, testLabels = next(test)
-        # print(np.argmax(testLabels,axis=1))
-        # print(prediction)
+        prediction = self.classifier.predict(test);
+
+        _, testLabels = next(test)
+        testLabels = np.argmax(testLabels,axis=1)
+        print(testLabels)
+        print(prediction)
+        print(f1_score(testLabels,prediction, average="macro"))
