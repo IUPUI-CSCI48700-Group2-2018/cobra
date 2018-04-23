@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 class BaseClassifier(ABC):
 
     @abstractmethod
-    def fit(data, validation):
+    def fit(train, test=None):
         pass
 
     def predict(data):

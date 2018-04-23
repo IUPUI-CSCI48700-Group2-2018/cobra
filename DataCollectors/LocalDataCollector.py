@@ -3,12 +3,24 @@ from keras.preprocessing.image import ImageDataGenerator
 
 class LocalDataCollector(DataCollectorBase):
 
-    def collectData(self):
-        train_batches = ImageDataGenerator().flow_from_directory(
-            'data/CarsID/train', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #c stand for Camry
-        valid_batches = ImageDataGenerator().flow_from_directory(
-            'data/CarsID/valid', target_size=(224, 224), classes=['c', 'm'], batch_size=10)  #m stand for Mercedes
-        test_batches = ImageDataGenerator().flow_from_directory(
-            'data/CarsID/test', target_size=(224, 224), classes=['c', 'm'], batch_size=4)
+    def __init__(self, directory, preprocessor=None):
+        self.directory = directory
+        self.preprocessor = preprocessor
 
-        return train_batches, test_batches, valid_batches
+    def collectData(self):
+        dataGenerator = ImageDataGenerator(validation_split=0.3,
+            preprocessing_function=self.preprocessor)
+
+        train = dataGenerator.flow_from_directory(
+            self.directory,
+            target_size=(224, 224),
+            subset="training",
+            batch_size=32)
+
+        test = dataGenerator.flow_from_directory(
+            self.directory,
+            target_size=(224, 224),
+            subset="validation",
+            batch_size=32)
+
+        return train, test

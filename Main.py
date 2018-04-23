@@ -1,10 +1,10 @@
 from Classifiers import Vgg16Classifier
 from DataCollectors import LocalDataCollector
+from preprocessing import simplePreprocessing
+from Application import Application
 
-dataCollector = LocalDataCollector()
-train, test, validation = dataCollector.collectData()
+dataCollector = LocalDataCollector("data/CobraCleaned",simplePreprocessing)
+classifier = Vgg16Classifier()
 
-c = Vgg16Classifier()
-c.fit(train,validation)
-pred = c.predict(test)
-print(pred)
+app = Application(dataCollector, classifier)
+app.run()
