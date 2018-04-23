@@ -4,8 +4,10 @@ from DataCollectors import LocalDataCollector
 from Preprocessors import PreprocessorImpl
 from Application import Application
 
+import keras
+
 dataCollector = LocalDataCollector()
 preprocessor = PreprocessorImpl()
 classifier = Vgg16Classifier()
 
-app = Application(dataCollector, preprocessor, classifier)
+app = Application(dataCollector, preprocessor, classifier, False)
