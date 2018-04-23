@@ -4,7 +4,7 @@ from preprocessing import simplePreprocessing
 from Application import Application
 
 dataCollector = LocalDataCollector("data/CobraCleanedDiv",simplePreprocessing)
-classifier = Vgg16Classifier("modelSobelPreprocessing")
+classifier = Vgg16Classifier("testModel")
 
 app = Application(dataCollector, classifier)
 app.run()
