@@ -18,6 +18,7 @@ class LocalDataCollector(DataCollectorBase):
         test = dataGenerator.flow_from_directory(
             self.directory+"/test",
             target_size=(224, 224),
-            batch_size=32)
+            batch_size=2000,
+            shuffle=False)
 
         return train, test
