@@ -3,7 +3,7 @@ from DataCollectors import LocalDataCollector
 from preprocessing import simplePreprocessing
 from Application import Application
 
-dataCollector = LocalDataCollector("data/CobraCleanedDiv")
+dataCollector = LocalDataCollector("data/CobraCleanedDiv", simplePreprocessing)
 classifier = Vgg16Classifier("dummy")
 
 app = Application(dataCollector, classifier)
